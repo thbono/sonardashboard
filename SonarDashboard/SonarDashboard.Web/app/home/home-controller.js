@@ -29,7 +29,6 @@
                                 user.issues = _.map(groupedIssues, function(issue) {
                                     return { rule: issue[0].rule, count: issue.length };
                                 });
-                                console.log(user.issues);
                             });
                     });
                 });
