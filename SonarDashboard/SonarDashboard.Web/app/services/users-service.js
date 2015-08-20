@@ -8,7 +8,7 @@
                 return $http({
                     url: baseApiUrl + 'search',
                     method: 'GET',
-                    params: encodeURI(params)
+                    params: params
                 }).success(function (data) {
                     return data;
                 }).error(function (data) {

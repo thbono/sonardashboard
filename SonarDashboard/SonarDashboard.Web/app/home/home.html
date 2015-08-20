@@ -1,16 +1,70 @@
 ﻿<div>
     <div class="row">
         <div class="col-md-6">
-            <h2>Usuários com menos violações no mês</h2>
-            <div class="" ng-repeat="user in users | orderBy:['totalIssues','name']" ng-show="user.login != 'admin'">
-                {{ user.name }}
-                <span class="pull-right badge">{{ user.totalIssues }}</span>
-                <div class="progress progress-striped active">
-                    <div class="progress-bar" ng-style="{ width: ((user.totalIssues / totalIssues) * 100) + '%' }" ng-class="{ 'progress-bar-success':$index == 0, 'progress-bar-warning':$index == 1, 'progress-bar-danger':$index == 2 }"></div>
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="collapse" href="#violacoes-panel">
+                    <h3 class="panel-title">Usuários com menos violações no mês</h3>
+                </div>
+                <div class="panel-body panel-collapse collapse in" id="violacoes-panel">
+                    <div ng-repeat="user in users | orderBy:['totalIssues','name']">
+                        {{ user.name }}
+                        <span class="pull-right badge">{{ user.totalIssues }}</span>
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" ng-style="{ width: ((user.totalIssues / totalIssues) * 100) + '%' }" ng-class="{ 'progress-bar-success':$index == 0, 'progress-bar-warning':$index == 1, 'progress-bar-danger':$index == 2 }"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="collapse" href="#divida-tecnica-panel">
+                    <h3 class="panel-title">Usuários com menor dívida técnica em aberto no mês</h3>
+                </div>
+                <div class="panel-body panel-collapse collapse in" id="divida-tecnica-panel">
+                    <div ng-repeat="user in users | orderBy:['totalDebt','name']">
+                        {{ user.name }}
+                        <span class="pull-right badge">{{ user.totalDebt | number:2 }}h</span>
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" ng-style="{ width: ((user.totalDebt / totalDebt) * 100) + '%' }" ng-class="{ 'progress-bar-success':$index == 0, 'progress-bar-warning':$index == 1, 'progress-bar-danger':$index == 2 }"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="collapse" href="#testavel-panel">
+                    <h3 class="panel-title">Usuários com código mais testável no mês</h3>
+                </div>
+                <div class="panel-body panel-collapse collapse in" id="testavel-panel">
+                    <div ng-repeat="user in users | orderBy:['totalIssues','name']">
+                        {{ user.name }}
+                        <span class="pull-right badge">{{ user.totalIssues }}</span>
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" ng-style="{ width: ((user.totalIssues / totalIssues) * 100) + '%' }" ng-class="{ 'progress-bar-success':$index == 0, 'progress-bar-warning':$index == 1, 'progress-bar-danger':$index == 2 }"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading" data-toggle="collapse" href="#reutilizavel-panel">
+                    <h3 class="panel-title">Usuários com código mais reutilizável no mês</h3>
+                </div>
+                <div class="panel-body panel-collapse collapse in" id="reutilizavel-panel">
+                    <div ng-repeat="user in users | orderBy:['totalIssues','name']">
+                        {{ user.name }}
+                        <span class="pull-right badge">{{ user.totalIssues }}</span>
+                        <div class="progress progress-striped active">
+                            <div class="progress-bar" ng-style="{ width: ((user.totalIssues / totalIssues) * 100) + '%' }" ng-class="{ 'progress-bar-success':$index == 0, 'progress-bar-warning':$index == 1, 'progress-bar-danger':$index == 2 }"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
