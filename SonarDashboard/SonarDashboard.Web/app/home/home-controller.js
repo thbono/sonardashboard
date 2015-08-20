@@ -1,6 +1,6 @@
 ﻿homeModule
     .controller('homeController', [
-        '$scope', 'sonarService', function ($scope, sonarService) {
+        '$scope', 'issuesService', 'usersService', function ($scope, issuesService, usersService) {
             var params = {
                 assigned: true,
                 createdAfter: new Date(new Date().getFullYear(), new Date().getMonth() -1, 1).toISOString().substring(0, 10),
@@ -9,18 +9,18 @@
             };
 
             $scope.params = params;
-            sonarService.issuesSearch(params)
+            issuesService.issuesSearch(params)
                 .then(function (result) {
                     $scope.totalIssues = result.data.total;
                 });
 
-            sonarService.usersSearch(null)
+            usersService.usersSearch(null)
                 .then(function(result) {
                     $scope.users = result.data.users;
                     angular.forEach($scope.users, function (user) {
                         var issuesParam = angular.copy(params);
                         issuesParam.assignees = user.login;
-                        sonarService.issuesSearch(issuesParam)
+                        issuesService.issuesSearch(issuesParam)
                             .then(function(result) {
                                 user.totalIssues = result.data.total;
                                 var groupedIssues = _.groupBy(result.data.issues, function (issue) {
