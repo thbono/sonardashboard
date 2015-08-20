@@ -2,22 +2,44 @@
     .controller('homeController', [
         '$scope', 'issuesService', 'usersService', function ($scope, issuesService, usersService) {
             var params = {
+                p: 1,
                 assigned: true,
                 createdAfter: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1).toISOString().substring(0, 10),
                 statuses: 'CONFIRMED,OPEN',
-                ps: 1000
+                ps: 5000
             };
+            $scope.totalDebt = 0;
+            var issuesAlreadyRead = 0;
+            var readIssues = function() {
+                params.p = params.p + 1;
+                issuesService.issuesSearch(params)
+                    .then(function(result) {
+                        $scope.totalIssues = result.data.total;
+                        issuesAlreadyRead = issuesAlreadyRead + result.data.issues.length;
+                        var debts = _.map(result.data.issues, 'debt');
+                        _.each(debts, function(debt) {
+                            $scope.totalDebt = $scope.totalDebt + juration.parse(debt);
+                        });
+                        $scope.totalDebtStr = juration.stringify($scope.totalDebt, { format: 'micro' });
 
-            $scope.params = params;
+                        if (issuesAlreadyRead < $scope.totalIssues) {
+                            readIssues();
+                        }
+                    });
+            };
             issuesService.issuesSearch(params)
                 .then(function (result) {
                     $scope.totalIssues = result.data.total;
-                    console.log(result.data.issues);
-                    var issues = _.map(result.data, 'issues');
-                    console.log(issues);
-                    var debts = _.map(issues, 'debt');
-                    $scope.totalDebt = _.reduce(debts, function(memo, num) { return memo + juration.parse(num); });
+                    issuesAlreadyRead = result.data.issues.length;
+                    var debts = _.map(result.data.issues, 'debt');
+                    _.each(debts, function(debt) {
+                        $scope.totalDebt = $scope.totalDebt + juration.parse(debt);
+                    });
+                    $scope.totalDebtStr = juration.stringify($scope.totalDebt, { format: 'micro' });
+                    readIssues();
                 });
+
+            
 
             usersService.usersSearch(null)
                 .then(function (result) {
@@ -27,6 +49,7 @@
 
                     angular.forEach($scope.users, function (user) {
                         var issuesParam = angular.copy(params);
+                        issuesParam.p = 1;
                         issuesParam.assignees = user.login;
                         issuesService.issuesSearch(issuesParam)
                             .then(function (result) {
@@ -36,13 +59,16 @@
                                     return {
                                         rule: index,
                                         count: value.length,
-                                        debt: _.reduce(value, function (memo, num) { return memo + juration.parse(num.debt); }, 0)
+                                        debt: _.reduce(value, function(memo, num) {
+                                             return memo + juration.parse(num.debt);
+                                        }, 0)
                                     };
                                 });
                                 var debts = _.map(user.issues, 'debt');
-                                user.totalDebt = (_.reduce(debts, function (memo, num) {
+                                user.totalDebt = _.reduce(debts, function (memo, num) {
                                     return memo + num;
-                                }) / 60) / 60;
+                                });
+                                user.totalDebtStr = juration.stringify(user.totalDebt, { format: 'micro' });
                             });
                     });
                 });
