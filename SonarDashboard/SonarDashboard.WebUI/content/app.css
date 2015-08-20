@@ -1,0 +1,194 @@
+﻿/*#region Common */
+
+body {
+    background-color: #F8F5F3 !important;
+}
+
+.main-content {
+    margin: 15px 15px 0;
+    padding: 60px 0 0 0;
+}
+
+.jumbotron {
+    margin: 0 -15px;
+}
+
+.navbar {
+    border-radius: 0 !important;
+}
+
+.navbar-brand > img {
+    display: inline !important;
+    margin-right: 10px;
+}
+
+.navbar-default .navbar-text {
+    color: #FFFFFF !important;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    height: 60px;
+    width: 100%;
+}
+
+.vcenter {
+    vertical-align: middle;
+}
+
+.clear {
+    clear: both;
+}
+
+.input-group {
+    width: 100%;
+}
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+
+.overflow-auto {
+    overflow: auto;
+}
+
+#alerts {
+    position: fixed;
+    top: 60px;
+    right: 0;
+    width: auto;
+    margin: 10px;
+    z-index: 99999999;
+}
+
+/*#endregion */
+
+/*#region Animate */
+
+.alert.ng-enter, .alert.ng-leave, .alert.ng-move {
+    -webkit-transition: 0.5s linear all;
+    -moz-transition: 0.5s linear all;
+    -o-transition: 0.5s linear all;
+    transition: 0.5s linear all;
+    opacity: 0;
+}
+
+    .alert.ng-enter.ng-enter-active,
+    .alert.ng-move.ng-move-active {
+        opacity: 1;
+    }
+
+/*#endregion */
+
+/*#region Comparison */
+
+.changeset-item-name {
+    padding: 2px;
+}
+
+#diffBar {
+    width: 3%;
+    height: 100%;
+    float: left;
+    position: relative;
+    background: #DDDDDD;
+}
+
+.diffBarLineLeft, .diffBarLineRight {
+    width: 50%;
+    float: left;
+    height: 0px;
+    cursor: pointer;
+}
+
+.inView {
+    background-image: url("../Content/InView.png");
+    background-repeat: repeat;
+}
+
+#activeBar {
+    position: absolute;
+    top: 0px;
+    background-color: #6699FF;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+#diffBox {
+    margin-left: auto;
+    margin-right: auto;
+    border: solid 2px #000000;
+}
+
+.diffHeader {
+    font-weight: bold;
+    padding: 2px 0px 2px 10px;
+    background-color: #FFFFFF;
+    text-align: center;
+}
+
+.diff-pane {
+    margin-right: 0px;
+    padding: 0px;
+    overflow: auto;
+    font-family: Courier New;
+    font-size: 1em;
+}
+
+.diff-table {
+    width: 100%;
+    height: 100%;
+}
+
+.line {
+    padding-left: .2em;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.line-number {
+    padding: 0 .3em;
+    background-color: #efefef;
+    text-align: right;
+}
+
+.InsertedLine {
+    background-color: #99D1B7;
+}
+
+.ModifiedLine {
+    background-color: #F4E99A;
+}
+
+.DeletedLine {
+    background-color: #DE9388;
+}
+
+.UnchangedLine {
+    background-color: #FFFFFF;
+}
+
+.ImaginaryLine {
+    background-color: #b9c9d4;
+}
+
+.InsertedCharacter {
+    background-color: #99D1B7;
+}
+
+.DeletedCharacter {
+    background-color: #DE9388;
+}
+
+.UnchangedCharacter {
+}
+
+.ImaginaryCharacter {
+}
+
+/*#endregion */

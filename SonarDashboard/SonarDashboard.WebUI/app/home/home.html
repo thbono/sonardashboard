@@ -1,0 +1,16 @@
+﻿<div>
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Usuários com menos violações no mês</h2>
+            <div class="" ng-repeat="user in users | orderBy:['totalIssues','name']" ng-show="user.login != 'admin'">
+                {{ user.name }}
+                <span class="pull-right badge">{{ user.totalIssues }}</span>
+                <div class="progress progress-striped active">
+                    <div class="progress-bar" ng-style="{ width: ((user.totalIssues / totalIssues) * 100) + '%' }" ng-class="{ 'progress-bar-success':$index == 0, 'progress-bar-warning':$index == 1, 'progress-bar-danger':$index == 2 }"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6"></div>
+    </div>
+
+</div>
