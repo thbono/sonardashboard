@@ -3,7 +3,7 @@
         <div class="col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading" data-toggle="collapse" href="#violacoes-panel">
-                    <h3 class="panel-title">Usuários com menos violações no mês</h3>
+                    <h4 class="panel-title">Violações no mês</h4>
                 </div>
                 <div class="panel-body panel-collapse collapse in" id="violacoes-panel">
                     <div ng-repeat="user in users | orderBy:['totalIssues','name']">
@@ -20,7 +20,7 @@
         <div class="col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-heading" data-toggle="collapse" href="#divida-tecnica-panel">
-                    <h3 class="panel-title">Usuários com menor dívida técnica em aberto no mês</h3>
+                    <h4 class="panel-title">Dívida técnica em aberto no mês</h4>
                 </div>
                 <div class="panel-body panel-collapse collapse in" id="divida-tecnica-panel">
                     <div ng-repeat="user in users | orderBy:['totalDebt','name']">

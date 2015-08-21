@@ -8,6 +8,7 @@
                 statuses: 'CONFIRMED,OPEN',
                 ps: 5000
             };
+
             $scope.totalDebt = 0;
             var issuesAlreadyRead = 0;
             var readIssues = function() {
@@ -27,6 +28,7 @@
                         }
                     });
             };
+
             issuesService.issuesSearch(params)
                 .then(function (result) {
                     $scope.totalIssues = result.data.total;
@@ -39,33 +41,31 @@
                     readIssues();
                 });
 
-            
-
             usersService.usersSearch(null)
-                .then(function (result) {
-                    $scope.users = _.filter(result.data.users, function (user) {
+                .then(function(result) {
+                    $scope.users = _.filter(result.data.users, function(user) {
                         return user.login !== 'admin';
                     });
 
-                    angular.forEach($scope.users, function (user) {
+                    angular.forEach($scope.users, function(user) {
                         var issuesParam = angular.copy(params);
                         issuesParam.p = 1;
                         issuesParam.assignees = user.login;
                         issuesService.issuesSearch(issuesParam)
-                            .then(function (result) {
+                            .then(function(result) {
                                 user.totalIssues = result.data.total;
                                 var groupedIssues = _.groupBy(result.data.issues, 'rule');
-                                user.issues = _.map(groupedIssues, function (value, index) {
+                                user.issues = _.map(groupedIssues, function(value, index) {
                                     return {
                                         rule: index,
                                         count: value.length,
                                         debt: _.reduce(value, function(memo, num) {
-                                             return memo + juration.parse(num.debt);
+                                            return memo + juration.parse(num.debt);
                                         }, 0)
                                     };
                                 });
                                 var debts = _.map(user.issues, 'debt');
-                                user.totalDebt = _.reduce(debts, function (memo, num) {
+                                user.totalDebt = _.reduce(debts, function(memo, num) {
                                     return memo + num;
                                 });
                                 user.totalDebtStr = juration.stringify(user.totalDebt, { format: 'micro' });
