@@ -1,7 +1,7 @@
 ﻿homeModule
     .controller('homeController', [
-        '$scope', 'issuesService', 'usersService',
-        function($scope, issuesService, usersService) {
+        '$scope', 'issuesService', 'usersService', 'projectsService',
+        function($scope, issuesService, usersService, projectsService) {
             var params = {
                 p: 1,
                 assigned: true,
@@ -81,18 +81,53 @@
                                     user.totalDebtStr = juration.stringify(user.totalDebt, {
                                         format: 'micro'
                                     });
+
+                                    var teamMember = _.find($scope.teamMembers, function(teamMember) {
+                                        return (teamMember.uniqueName.toUpperCase().indexOf(user.login.toUpperCase()) >= 0) ||
+                                            (teamMember.displayName.toUpperCase().indexOf(user.name.toUpperCase()) >= 0);
+                                    });
+
+                                    if (teamMember) {
+                                        user.imageUrl = teamMember.imageUrl;
+                                    }
                                 });
                         });
                     });
             };
 
-            $scope.refreshAll = function () {
+            $scope.refreshAll = function() {
                 $scope.users = [];
-                $scope.searchIssues();
-                $scope.searchUsers();
+                $scope.getProjects();
             };
 
-            $scope.refreshAll();
+            $scope.projects = [];
+            $scope.teams = [];
+            $scope.teamMembers = [];
+            $scope.getProjects = function() {
+                projectsService.projectsSearch()
+                    .then(function(projects) {
+                        $scope.projects = projects.data.value;
+                        $scope.teams = [];
+                        $scope.teamMembers = [];
+                        angular.forEach($scope.projects, function(project) {
+                            projectsService.teamsSearch(project.id)
+                                .then(function(teams) {
+                                    $scope.teams.push(teams.data.value[0]);
+                                    angular.forEach($scope.teams, function(team) {
+                                        projectsService.membersSearch(project.id, team.id)
+                                            .then(function(teamMembers) {
+                                                $scope.teamMembers = teamMembers.data.value;
+
+                                                $scope.searchIssues();
+                                                $scope.searchUsers();
+                                            });
+                                    });
+                                });
+                        });
+                    })
+            };
+
+            $scope.getProjects();
         }
     ])
     .config([
