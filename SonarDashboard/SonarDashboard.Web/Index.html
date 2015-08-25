@@ -1,45 +1,49 @@
 ﻿<!DOCTYPE html>
 <base href="/" />
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="sonarDashboard">
+
 <head>
     <title>SonarQube Dashboard</title>
-    <link href="content/app.css" rel="stylesheet" />
-    <link href="content/bootstrap.css" rel="stylesheet" />
-    <link href="content/loading-bar.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="css/materialize.css" rel="stylesheet" />
+    <link href="css/loading-bar.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="favicon.png">
     <script src="scripts/jQuery/jquery-2.1.4.js"></script>
-    <script src="scripts/bootstrap/bootstrap.js"></script>
     <script src="scripts/angular/angular.js"></script>
     <script src="scripts/angular/angular-animate.js"></script>
     <script src="scripts/angular/angular-route.js"></script>
     <script src="scripts/angular/angular-loading-bar.js"></script>
     <script src="scripts/underscorejs/underscore.js"></script>
     <script src="scripts/jurationjs/juration.js"></script>
+    <script src="js/materialize.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
-    <div class="navbar navbar-default navbar-fixed-top">
-        <div class="container" >
-            <div class="navbar-header">
-                <a href="#" class="navbar-brand">
-                    <span class="vcenter">SonarQube Dashboard</span>
-                </a>
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-main">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-main">
-                <ul class="nav navbar-nav navbar-right">
-                </ul>
-            </div>
+    <header>
+        <ul class="side-nav fixed white darken-2">
+            <li class="logo blue-grey darken-2">
+                <a href="#!" class="brand-logo white-text">SonarQube dashboard</a>
+            </li>
+            <li class="bold"><i class="material-icons">dashboard</i> Dashboard</span>
+            </li>
+            <li class="bold"><i class="material-icons">trending_up</i> Ranking</li>
+        </ul>
+    </header>
+    <main>
+        <div ng-cloak>
+            <ng-view></ng-view>
         </div>
+    </main>
+    <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+        <a class="btn-floating btn-large blue-grey darken-2 waves-effect">
+            <i class="material-icons">refresh</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating red" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="material-icons">insert_chart</i></a></li>
+            <li><a class="btn-floating green" style="transform: scaleY(0.4) scaleX(0.4) translateY(40px); opacity: 0;"><i class="material-icons">publish</i></a></li>
+        </ul>
     </div>
-
-    <div class="container main-content" ng-cloak>
-        <ng-view></ng-view>
-    </div>
-
     <script src="app/app.js"></script>
     <script src="app/routes.js"></script>
     <script src="app/services/issues-service.js"></script>
@@ -47,4 +51,5 @@
     <script src="app/services/users-service.js"></script>
     <script src="app/home/home-controller.js"></script>
 </body>
+
 </html>
