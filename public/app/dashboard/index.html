@@ -3,7 +3,7 @@
         <div class="col s12 m6">
             <div class="card">
                 <div class="card-content grey lighten-5">
-                    <div class="card-title grey-text text-darken-2">Violações no mês<i class="material-icons right waves-effect" ng-click="refreshIssues()">refresh</i></div>
+                    <div class="card-title grey-text text-darken-2">Violações no mês</div>
                     <ul class="collection">
                         <li class="collection-item avatar grey-text text-darken-2" ng-repeat="user in users | orderBy:['totalIssues', 'name']" ng-class="{ 'grey lighten-5': $index > 2 }">
                             <span class="title">{{ user.name }}</span>
@@ -22,7 +22,7 @@
         <div class="col s12 m6">
             <div class="card">
                 <div class="card-content grey lighten-5">
-                    <div class="card-title grey-text text-darken-2">Dívida técnica no mês<i class="material-icons right waves-effect" ng-click="refreshDebt()">refresh</i></div>
+                    <div class="card-title grey-text text-darken-2">Dívida técnica no mês</div>
                     <ul class="collection">
                         <li class="collection-item avatar grey-text text-darken-2" ng-repeat="user in users | orderBy:['totalDebt', 'name']" ng-class="{ 'grey lighten-5': $index > 2 }">
                             <span class="title">{{ user.name }}</span>
@@ -40,7 +40,7 @@
         </div>
     </div>
     <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
-        <span class="btn-floating btn-large blue-grey darken-2 waves-effect waves-circle" ng-click="ctrl.refresh()">
+        <span class="btn-floating btn-large blue-grey  waves-effect waves-circle" ng-click="ctrl.refresh()">
             <i class="material-icons">refresh</i>
         </span>
     </div>
