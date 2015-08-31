@@ -9,7 +9,7 @@
 
     }
 
-    commonModule
+    dashboardModule
         .controller('rankingController', rankingController)
         .config([
             '$routeProvider',
