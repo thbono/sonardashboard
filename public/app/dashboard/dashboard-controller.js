@@ -5,7 +5,7 @@
             var params = {
                 p: 1,
                 assigned: true,
-                createdAfter: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1).toISOString().substring(0, 10),
+                createdAfter: new Date(new Date().getFullYear(), new Date().getMonth(), 1).toISOString().substring(0, 10),
                 statuses: 'CONFIRMED,OPEN',
                 ps: 5000
             };
@@ -81,15 +81,6 @@
                                     user.totalDebtStr = juration.stringify(user.totalDebt, {
                                         format: 'micro'
                                     });
-
-                                    var teamMember = _.find($scope.teamMembers, function(teamMember) {
-                                        return (teamMember.uniqueName.toUpperCase().indexOf(user.login.toUpperCase()) >= 0) ||
-                                            (teamMember.displayName.toUpperCase().indexOf(user.name.toUpperCase()) >= 0);
-                                    });
-
-                                    if (teamMember) {
-                                        user.imageUrl = teamMember.imageUrl;
-                                    }
                                 });
                         });
                     });
@@ -97,7 +88,8 @@
 
             $scope.refreshAll = function() {
                 $scope.users = [];
-                $scope.getProjects();
+                $scope.searchIssues();
+                $scope.searchUsers();
             };
 
             $scope.projects = [];
