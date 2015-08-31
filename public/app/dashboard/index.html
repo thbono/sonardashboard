@@ -1,13 +1,11 @@
-﻿<div>
+﻿<div ng-controller="dashboardController as ctrl">
     <div class="row">
         <div class="col s12 m6">
             <div class="card">
                 <div class="card-content grey lighten-5">
                     <div class="card-title grey-text text-darken-2">Violações no mês<i class="material-icons right waves-effect" ng-click="refreshIssues()">refresh</i></div>
-                    <ul class="collection z-depth-1">
+                    <ul class="collection">
                         <li class="collection-item avatar grey-text text-darken-2" ng-repeat="user in users | orderBy:['totalIssues', 'name']" ng-class="{ 'grey lighten-5': $index > 2 }">
-                            <i class="material-icons circle" ng-if="!user.imageUrl">face</i>
-                            <img ng-src="{{ user.imageUrl }}" class="grey circle" ng-if="user.imageUrl">
                             <span class="title">{{ user.name }}</span>
                             <p class="grey-text">
                                 <div class="progress" ng-class="{ 'green lighten-5':$index <= 2, 'red lighten-4':$index > 2 }">
@@ -25,10 +23,8 @@
             <div class="card">
                 <div class="card-content grey lighten-5">
                     <div class="card-title grey-text text-darken-2">Dívida técnica no mês<i class="material-icons right waves-effect" ng-click="refreshDebt()">refresh</i></div>
-                    <ul class="collection z-depth-1">
+                    <ul class="collection">
                         <li class="collection-item avatar grey-text text-darken-2" ng-repeat="user in users | orderBy:['totalDebt', 'name']" ng-class="{ 'grey lighten-5': $index > 2 }">
-                            <i class="material-icons circle" ng-if="!user.imageUrl">face</i>
-                            <img ng-src="{{ user.imageUrl }}" class="grey circle" ng-if="user.imageUrl">
                             <span class="title">{{ user.name }}</span>
                             <p class="grey-text">
                                 <div class="progress" ng-class="{ 'green lighten-5':$index <= 2, 'red lighten-4':$index > 2 }">
@@ -44,7 +40,7 @@
         </div>
     </div>
     <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
-        <span class="btn-floating btn-large blue-grey darken-2 waves-effect waves-circle" ng-click="refreshAll()">
+        <span class="btn-floating btn-large blue-grey darken-2 waves-effect waves-circle" ng-click="ctrl.refresh()">
             <i class="material-icons">refresh</i>
         </span>
     </div>
