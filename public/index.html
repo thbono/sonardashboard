@@ -27,8 +27,8 @@
                 <a href="#!" class="brand-logo white-text">SonarQube Dashboard</a>
             </li>
             <li class="valign-wrapper" ng-class="ctrl.menuClass('dashboard')"><a href="/dashboard" class="waves-effect"><i class="material-icons">dashboard</i>&nbsp;&nbsp;Dashboard</a></li>
-            <li class="valign-wrapper" ng-class="ctrl.menuClass('ranking')"><a href="/ranking" class="waves-effect"><i class="material-icons">trending_up</i>&nbsp;&nbsp;Ranking</a></li>
-            <li class="valign-wrapper" ng-class="ctrl.menuClass('build')"><a href="/builds" class="waves-effect"><i class="material-icons">build</i>&nbsp;&nbsp;Builds</a></li>
+            <li ng-hide="true" class="valign-wrapper" ng-class="ctrl.menuClass('ranking')"><a href="/ranking" class="waves-effect"><i class="material-icons">trending_up</i>&nbsp;&nbsp;Ranking</a></li>
+            <li ng-hide="true" class="valign-wrapper" ng-class="ctrl.menuClass('build')"><a href="/builds" class="waves-effect"><i class="material-icons">build</i>&nbsp;&nbsp;Builds</a></li>
         </ul>
     </header>
     <main>
@@ -44,6 +44,7 @@
     <script src="app/services/project-service.js"></script>
     <script src="app/common/menu-controller.js"></script>
     <script src="app/dashboard/dashboard-controller.js"></script>
+    <script src="app/builds/builds-controller.js"></script>
     <script src="app/ranking/ranking-controller.js"></script>
 </body>
 
