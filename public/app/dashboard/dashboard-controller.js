@@ -143,7 +143,7 @@
 
             user.totalDebtStr = juration.stringify(user.totalDebt, {
                 format: 'micro'
-            });
+            }) || "0m";
         }
     }
 
