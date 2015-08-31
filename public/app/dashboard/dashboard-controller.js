@@ -139,7 +139,7 @@
 
             user.totalDebt = _.reduce(debts, function(memo, num) {
                 return memo + num;
-            });
+            }) || 0;
 
             user.totalDebtStr = juration.stringify(user.totalDebt, {
                 format: 'micro'
