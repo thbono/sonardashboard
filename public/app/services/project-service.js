@@ -1,5 +1,5 @@
 servicesModule
-    .factory('projectsService', [
+    .factory('projectService', [
         '$http', '$base64',
         function($http, $base64) {
             var baseApiUrl = 'http://192.168.198.26:8080/tfs/DefaultCollection/_apis/';

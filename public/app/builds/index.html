@@ -1,3 +1,11 @@
 <div ng-controller="buildsController as ctrl">
-
+    <div class="row">
+        <div class="col s6 m4" ng-repeat="definition in buildDefinitions">
+            <div class="card">
+                <div class="card-content green" ng-class="{ 'green': definition.status == 'succeeded', 'red': definition.status == 'failed' }">
+                    <div class="card-title white-text text-darken-2">{{ definition.name }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
