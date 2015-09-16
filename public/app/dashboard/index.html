@@ -5,7 +5,7 @@
                 <div class="card-content grey lighten-5">
                     <div class="card-title grey-text text-darken-2">Violações no mês</div>
                     <ul class="collection">
-                        <li class="collection-item avatar grey-text text-darken-2" ng-repeat="user in users | orderBy:['totalIssues', 'name']" ng-class="{ 'grey lighten-5': $index > 2 }">
+                        <li class="collection-item avatar grey-text text-darken-2" ng-repeat="user in users | orderBy:['totalIssues', 'name']" ng-class="{ 'grey lighten-5': $index > 2 }" ng-if="user.hasCheckedIn">
                             <span class="title">{{ user.name }}</span>
                             <p class="grey-text">
                                 <div class="progress" ng-class="{ 'green lighten-5':$index <= 2, 'red lighten-4':$index > 2 }">
@@ -24,7 +24,7 @@
                 <div class="card-content grey lighten-5">
                     <div class="card-title grey-text text-darken-2">Dívida técnica no mês</div>
                     <ul class="collection">
-                        <li class="collection-item avatar grey-text text-darken-2" ng-repeat="user in users | orderBy:['totalDebt', 'name']" ng-class="{ 'grey lighten-5': $index > 2 }">
+                        <li class="collection-item avatar grey-text text-darken-2" ng-repeat="user in users | orderBy:['totalDebt', 'name']" ng-class="{ 'grey lighten-5': $index > 2 }" ng-if="user.hasCheckedIn">
                             <span class="title">{{ user.name }}</span>
                             <p class="grey-text">
                                 <div class="progress" ng-class="{ 'green lighten-5':$index <= 2, 'red lighten-4':$index > 2 }">
