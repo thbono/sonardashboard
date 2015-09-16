@@ -1,17 +1,25 @@
 ﻿(function() {
-    function dashboardController($scope, issuesService, usersService) {
+    function dashboardController($scope, issuesService, usersService, projectService, changesetService) {
         this.$scope = $scope;
+
         this.issuesService = issuesService;
         this.usersService = usersService;
+        this.projectService = projectService;
+        this.changesetService = changesetService;
+
         this.initialize();
         this.refresh();
     };
 
-    dashboardController.$inject = ['$scope', 'issuesService', 'usersService'];
+    dashboardController.$inject = ['$scope', 'issuesService', 'usersService', 'projectService', 'changesetService'];
 
     dashboardController.prototype = {
         initialize: function() {
             this.$scope.users = [];
+            this.$scope.scmUsers = [];
+            this.$scope.projects = [];
+            this.$scope.teams = [];
+            this.$scope.teamMembers = [];
             this.$scope.totalIssues = 0;
             this.$scope.totalDebt = 0;
             this.$scope.totalDebtStr = '0';
@@ -21,7 +29,7 @@
         refresh: function() {
             this.initialize();
             this.getTotals();
-            this.getUsers();
+            this.getSonarUsers();
         },
 
         getCurrentMonth: function() {
@@ -83,16 +91,16 @@
             self.getTotals(data.p + 1);
         },
 
-        getUsers: function() {
+        getSonarUsers: function() {
             var self = this;
 
             this.usersService.usersSearch(null)
                 .then(function(result) {
-                    self.usersSearchCallback(result.data.users);
+                    self.sonarUsersSearchCallback(result.data.users);
                 });
         },
 
-        usersSearchCallback: function(users) {
+        sonarUsersSearchCallback: function(users) {
             var self = this;
 
             this.$scope.users = this.filterUsers(users);
@@ -100,6 +108,8 @@
             angular.forEach(this.$scope.users, function(user) {
                 self.getUsersIssuesAndDebt(user);
             });
+
+            this.getProjects();
         },
 
         filterUsers: function(users) {
@@ -144,6 +154,72 @@
             user.totalDebtStr = juration.stringify(user.totalDebt, {
                 format: 'micro'
             }) || "0m";
+        },
+
+        getProjects: function() {
+            var self = this;
+
+            this.projectService.projectsSearch()
+                .then(function(result) {
+                    self.$scope.projects = result.data.value;
+                    self.projectsSearchCallback();
+                });
+        },
+
+        projectsSearchCallback: function() {
+            var self = this;
+
+            angular.forEach(this.$scope.projects, function(project) {
+                self.getTeams(project.id);
+            });
+        },
+
+        getTeams: function(projectId) {
+            var self = this;
+
+            this.projectService.teamsSearch(projectId)
+                .then(function(result) {
+                    self.$scope.teams = result.data.value;
+                    self.teamsSearchCallback(projectId)
+                });
+        },
+
+        teamsSearchCallback: function(projectId) {
+            var self = this;
+
+            angular.forEach(this.$scope.teams, function(team) {
+                self.getTeamMembers(projectId, team.id, team);
+
+            });
+        },
+
+        getTeamMembers: function(projectId, teamId, team) {
+            var self = this;
+
+            this.projectService.membersSearch(projectId, teamId)
+                .then(function(result) {
+                    self.$scope.teamMembers = result.data.value;
+                    self.membersSearchCallback();
+                });
+        },
+
+        membersSearchCallback: function() {
+            var self = this;
+            angular.forEach(this.$scope.teamMembers, function(member) {
+                var sonarUser = _.find(self.$scope.users, function(user) {
+                    return user.name.toUpperCase().indexOf(member.displayName.toUpperCase()) >= 0 ||
+                        member.displayName.toUpperCase().indexOf(user.name.toUpperCase()) >= 0 ||
+                        user.login.toUpperCase().indexOf(member.uniqueName.toUpperCase()) >= 0 ||
+                        member.uniqueName.toUpperCase().indexOf(user.login.toUpperCase()) >= 0;
+                });
+
+                self.changesetService.changesetsSearch(self.getCurrentMonth(), member.uniqueName)
+                    .then(function(result) {
+                        if (sonarUser) {
+                            sonarUser.hasCheckedIn = result.data.count > 0;
+                        }
+                    });
+            });
         }
     }
 
