@@ -43,12 +43,12 @@
                         });
 
                         self.$scope.buildDefinitions = definitions;
-                        self.queryBuildStatus();
+                        self.$interval(self.queryBuildStatus, 30000, 0, true, self);
                     })
             })
         },
 
-        queryBuildStatus: function() {
+        queryBuildStatus: function(context) {
             var self = this;
             angular.forEach(this.$scope.buildDefinitions, function(definition) {
                 self.buildService.latestBuildSearch(definition.project.id, definition.id)
