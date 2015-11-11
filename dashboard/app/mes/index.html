@@ -1,0 +1,51 @@
+﻿<div ng-controller="mesController as ctrl">
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content grey lighten-5">
+                    <div class="card-title grey-text text-darken-2">Violações no mês</div>
+                    <ul class="collection">
+                        <li class="collection-item avatar grey-text text-darken-2" ng-repeat="user in users | orderBy:['totalIssues', 'name']" ng-class="{ 'grey lighten-5': $index > 2 }" ng-if="user.totalIssues > 0">
+                           <span class="title">{{ user.name }}</span>
+                            <p class="grey-text">
+                                <div class="progress" ng-class="{ 'green lighten-5':$index <= 2, 'red lighten-4':$index > 2 }">
+                                    <div class="determinate" ng-class="{ 'green lighten-1': $index <= 2, 'red lighten-2': $index > 2 }" ng-style="{ width: ((user.totalIssues / totalIssues) * 100) + '%' }"></div>
+                                </div>
+                            </p>
+                            <span class="secondary-content badge" ng-class="{ 'green lighten-3 white-text':$index <= 2, 'red lighten-2 white-text':$index > 2 }">
+								<a class="white-text" target="_blank" href="{{ user.link }}">{{ user.totalIssues }}</a>
+							</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-action right-align grey-text text-darken-2 grey lighten-5">Total: {{ totalIssues }} </div>
+            </div>
+        </div>
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content grey lighten-5">
+                    <div class="card-title grey-text text-darken-2">Débito técnico no mês</div>
+                    <ul class="collection">
+                        <li class="collection-item avatar grey-text text-darken-2" ng-repeat="user in users | orderBy:['totalDebt', 'name']" ng-class="{ 'grey lighten-5': $index > 2 }" ng-if="user.totalIssues > 0">
+                            <span class="title">{{ user.name }}</span>
+                            <p class="grey-text">
+                                <div class="progress" ng-class="{ 'green lighten-5':$index <= 2, 'red lighten-4':$index > 2 }">
+                                    <div class="determinate" ng-class="{ 'green lighten-1': $index <= 2, 'red lighten-2': $index > 2 }" ng-style="{ width: ((user.totalDebt / totalDebt) * 100) + '%' }"></div>
+                                </div>
+                            </p>
+							<span class="secondary-content badge" ng-class="{ 'green lighten-3 white-text':$index <= 2, 'red lighten-2 white-text':$index > 2 }">
+								<a class="white-text" target="_blank" href="{{ user.link }}">{{ user.totalDebtStr }}</a>
+							</span>                            
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-action right-align grey-text text-darken-2 grey lighten-5">Total: {{ totalDebtStr }} </div>
+            </div>
+        </div>
+    </div>
+    <div class="fixed-action-btn" style="bottom: 25px; right: 25px;">
+        <span class="btn-floating btn-large blue-grey  waves-effect waves-circle" ng-click="ctrl.refresh()">
+            <i class="material-icons">refresh</i>
+        </span>
+    </div>
+</div>

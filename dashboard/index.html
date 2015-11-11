@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<base href="/" />
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="sonarDashboard">
+
+<head>
+    <title>SonarQube Dashboard</title>
+    <link rel="icon" type="image/png" href="dashboard/favicon.png">
+    <link href="dashboard/css/app.css" rel="stylesheet" />
+    <link href="dashboard/node_modules/materialize-css/bin/materialize.css" rel="stylesheet" />
+    <link href="dashboard/node_modules/angular-loading-bar/build/loading-bar.min.css" rel="stylesheet" />
+    <script src="dashboard/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="dashboard/node_modules/angular/angular.min.js"></script>
+    <script src="dashboard/node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="dashboard/node_modules/angular-route/angular-route.min.js"></script>
+    <script src="dashboard/node_modules/angular-loading-bar/build/loading-bar.min.js"></script>
+    <script src="dashboard/node_modules/angular-base64/angular-base64.min.js"></script>
+    <script src="dashboard/node_modules/underscore/underscore-min.js"></script>
+    <script src="dashboard/node_modules/juration/juration.js"></script>
+    <script src="dashboard/node_modules/materialize-css/bin/materialize.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <ul class="side-nav fixed grey lighten-4" ng-controller="menuController as ctrl">
+            <li class="logo blue-grey center-align">
+                <a href="#" class="brand-logo white-text">SonarQube Dashboard</a>
+            </li>
+			<li class="valign-wrapper" ng-class="ctrl.menuClass('dashboard')"><a href="/dashboard/semana" class="waves-effect">Semana</a></li>            
+            <li class="valign-wrapper" ng-class="ctrl.menuClass('dashboard')"><a href="/dashboard/mes" class="waves-effect">Mês</a></li>            
+        </ul>
+    </header>
+    <main>
+        <div ng-cloak>
+            <ng-view></ng-view>
+        </div>
+    </main>
+    <script src="dashboard/app/app.js"></script>
+    <script src="dashboard/app/routes.js"></script>    
+    <script src="dashboard/app/services/issues-service.js"></script>        
+    <script src="dashboard/app/common/menu-controller.js"></script>
+	<script src="dashboard/app/semana/semana-controller.js"></script>    
+    <script src="dashboard/app/mes/mes-controller.js"></script>    	
+</body>
+
+</html>

@@ -1,12 +1,12 @@
 {
-  "name": "SonarDashboard",
+  "name": "Sonar4Dashboard",
   "version": "1.0.0",
-  "description": "SonarQube Dashboard",
+  "description": "SonarQube 4 Dashboard",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Rodrigo F. Fernandes",
+  "author": "Tiago Bono",
   "license": "ISC",
   "dependencies": {
     "angular": "^1.4.4",

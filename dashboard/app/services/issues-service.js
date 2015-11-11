@@ -1,13 +1,16 @@
 ﻿servicesModule
-    .factory('usersService', [
-        '$http', function ($http) {
-            var baseApiUrl = 'http://192.168.198.26:5880/api/users/';
+    .factory('issuesService', [
+        '$http', function ($http) {			
+            var baseApiUrl = 'http://192.168.9.181:9000/api/issues/';
             var service = [];
 
-            var _usersSearch = function (params) {
+            var _issuesSearch = function (params) {
                 return $http({
                     url: baseApiUrl + 'search',
-                    method: 'GET',
+                    method: 'GET',		
+					headers: {
+						'Authorization': 'Basic dGlhZ28uYm9ubzohQCNNdWRhcg=='
+					},
                     params: params
                 }).success(function (data) {
                     return data;
@@ -16,7 +19,7 @@
                 });
             };
 
-            service.usersSearch = _usersSearch;
+            service.issuesSearch = _issuesSearch;            
 
             return service;
         }
